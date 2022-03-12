@@ -6,6 +6,13 @@ generator client {
   previewFeatures       = ["referentialIntegrity"]
 }
 
+generator typegraphql {
+  provider = "typegraphql-prisma"
+  previewFeatures       = ["referentialIntegrity"]
+  output   = "../prisma/generated/type-graphql"
+  emitTranspiledCode = true
+}
+
 datasource db {
   provider              = "mysql"
   url                   = env("DATABASE_URL")
