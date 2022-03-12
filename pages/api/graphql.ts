@@ -5,6 +5,7 @@ import { buildSchemaSync, registerEnumType } from 'type-graphql'
 import { PageConfig } from 'next'
 import { resolvers } from '@generated/type-graphql'
 import { Prisma } from '@prisma/client'
+import prisma from '../../libs/client'
 
 const cors = Cors()
 
@@ -30,7 +31,10 @@ export const config: PageConfig = {
 
 const apolloServer = new ApolloServer({
   schema,
-  context: () => ({ Prisma }),
+  context: (context) => {
+    context.prisma = prisma
+    return context
+  },
 })
 
 const startServer = apolloServer.start()
