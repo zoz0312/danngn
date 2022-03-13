@@ -49,12 +49,18 @@ enum SalesType {
 
 model TradeCategory {
   id        Int   @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  deleted       DateTime?
   name      String
   tradePost TradePost[]
 }
 
 model TradePost {
   id            Int           @id @default(autoincrement())
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  deleted       DateTime?
   title         String
   content       String        @db.Text
   price         Int
@@ -72,6 +78,9 @@ model TradePost {
 }
 
 model TradeInterest {
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @default(now()) @updatedAt
+  deleted       DateTime?
   tradePost   TradePost @relation(fields: [tradePostId], references: [id])
   tradePostId Int
   user        User      @relation(fields: [userId], references: [id])
