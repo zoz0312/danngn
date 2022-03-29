@@ -1,7 +1,11 @@
 {
   "compilerOptions": {
-    "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext"],
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
+    // "module": "esnext",
+    "target": "es2018",
+    "lib": ["dom", "dom.iterable", "esnext", "es2018", "esnext.asynciterable"],
+    "module": "commonjs",
     "allowJs": true,
     "skipLibCheck": true,
     "strict": false,
@@ -9,16 +13,16 @@
     "noEmit": true,
     "incremental": true,
     "esModuleInterop": true,
-    "module": "esnext",
     "moduleResolution": "node",
     "resolveJsonModule": true,
     "isolatedModules": true,
     "jsx": "preserve",
     "baseUrl": ".",
     "paths": {
-      "@generated/*": ["prisma/generated/type-graphql"],
-      "@libs/*": ["libs"],
-      "@api/*": ["pages/api"]
+      "@generated/*": ["prisma/generated/type-graphql/*"],
+      "@libs/*": ["libs/*"],
+      "@api/*": ["pages/api"],
+      "@graphql/*": ["graphql/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx"],

@@ -3,88 +3,97 @@
 
 generator client {
   provider              = "prisma-client-js"
-  previewFeatures       = ["referentialIntegrity"]
+  // previewFeatures       = ["referentialIntegrity"]
 }
 
 generator typegraphql {
   provider            = "typegraphql-prisma"
-  previewFeatures     = ["referentialIntegrity"]
+  // previewFeatures     = ["referentialIntegrity"]
   output              = "../prisma/generated/type-graphql"
   emitTranspiledCode  = true
+  // emitOnly = "models"
 }
 
 datasource db {
   provider              = "mysql"
   url                   = env("DATABASE_URL")
-  referentialIntegrity  = "prisma"
+  // referentialIntegrity  = "prisma"
 }
 
 // TODO: 읍면동 정보 추가
 
-enum Role {
+enum role {
   USER
   ADMIN
   SUPER_ADMIN
 }
 
-model User {
+model user {
   id            Int       @id @default(autoincrement())
   createdAt     DateTime  @default(now())
   updatedAt     DateTime  @default(now()) @updatedAt
   deleted       DateTime?
   phone         Int?      @unique
-  email         String?   @unique
+  email         String    @unique
   name          String
   password      String    @default("")
-  role          Role      @default(USER)
-  tradePosts    TradePost[]
-  tradeInterest TradeInterest[]
+  role          role      @default(USER)
+  tradePosts    tradePost[]
+  tradeInterest tradeInterest[]
+
+  @@index([id])
 }
 
-enum SalesType {
+enum salesType {
   SALE      // 판매중
   RESERVED  // 예약중
   SOLD_OUT  // 판매완료
 }
 
-model TradeCategory {
-  id        Int   @id @default(autoincrement())
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+model tradeCategory {
+  id            Int           @id @default(autoincrement())
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now()) @updatedAt
   deleted       DateTime?
-  name      String
-  tradePost TradePost[]
+  name          String
+  imageSrc      String
+  tradePost     tradePost[]
+
+  @@index([id])
 }
 
-model TradePost {
+model tradePost {
   id            Int           @id @default(autoincrement())
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @default(now()) @updatedAt
   deleted       DateTime?
   title         String
   content       String        @db.Text
   price         Int
-  salesType     SalesType     @default(SALE)
+  salesType     salesType     @default(SALE)
   hitCount      Int           @db.UnsignedInt @default(0)
   isHide        Boolean       @default(false)
   isPriceOffer  Boolean       @default(false)
-  user          User          @relation(fields: [userId], references: [id])
+  user          user          @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId        Int
-  category      TradeCategory @relation(fields: [categoryId], references: [id])
+  category      tradeCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
   categoryId    Int
-  tradeInterest TradeInterest[]
+  tradeInterest tradeInterest[]
   // TODO: 읍면동 정보
   // TODO: 이미지
+
+  @@index([id])
 }
 
-model TradeInterest {
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @default(now()) @updatedAt
+model tradeInterest {
+  createdAt     DateTime    @default(now())
+  updatedAt     DateTime    @default(now()) @updatedAt
   deleted       DateTime?
-  tradePost   TradePost @relation(fields: [tradePostId], references: [id])
-  tradePostId Int
-  user        User      @relation(fields: [userId], references: [id])
-  userId      Int
+  tradePost     tradePost   @relation(fields: [tradePostId], references: [id], onDelete: Cascade)
+  tradePostId   Int
+  user          user        @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId        Int
 
   @@id([tradePostId, userId])
+  @@index([tradePostId, userId])
 }

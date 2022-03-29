@@ -2,12 +2,10 @@ import 'reflect-metadata'
 import Cors from 'micro-cors'
 import { ApolloServer } from 'apollo-server-micro'
 import { buildSchemaSync, registerEnumType } from 'type-graphql'
+import prisma from '@libs/client'
+import { resolvers } from '@generated/index'
+import { ClientUserResolver } from '@graphql/resolvers/ClientUserResolver'
 import { PageConfig } from 'next'
-import { resolvers } from '@generated/type-graphql'
-import { Prisma } from '@prisma/client'
-import prisma from '../../libs/client'
-
-const cors = Cors()
 
 enum SortOrder {
   asc = 'asc',
@@ -19,15 +17,9 @@ registerEnumType(SortOrder, {
 })
 
 const schema = buildSchemaSync({
-  resolvers,
+  resolvers: [...resolvers, ClientUserResolver],
   validate: false,
 })
-
-export const config: PageConfig = {
-  api: {
-    bodyParser: false,
-  },
-}
 
 const apolloServer = new ApolloServer({
   schema,
@@ -39,12 +31,27 @@ const apolloServer = new ApolloServer({
 
 const startServer = apolloServer.start()
 
+const cors = Cors()
 export default cors(async (req, res) => {
   if (req.method === 'OPTIONS') {
     res.end()
     return false
   }
 
+  res.setHeader('Access-Control-Allow-Headers', 'Accept, Content-Type')
+  res.setHeader('Access-Control-Allow-Credentials', 'true')
+  res.setHeader(
+    'Access-Control-Allow-Origin',
+    'https://studio.apollographql.com'
+  )
+
   await startServer
   await apolloServer.createHandler({ path: '/api/graphql' })(req, res)
 })
+
+// Apollo Server Micro takes care of body parsing
+export const config: PageConfig = {
+  api: {
+    bodyParser: false,
+  },
+}
