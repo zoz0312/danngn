@@ -1,11 +1,11 @@
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
-import * as bcrypt from 'bcrypt'
 import prisma from '@libs/client'
 import {
   ClientUserResolverInput,
   ClientUserResolverOutput,
 } from '@graphql/type/ClientUserResolver'
 import { Context } from '@libs/context'
+import { hashPassword } from '@libs/hash'
 
 @Resolver()
 export class ClientUserResolver {
@@ -61,6 +61,7 @@ export class ClientUserResolver {
       }
 
       delete clientUserResolverInput.password2
+      clientUserResolverInput.password = await hashPassword(password)
       await prisma.user.create({
         data: clientUserResolverInput,
       })
