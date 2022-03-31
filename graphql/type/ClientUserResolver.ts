@@ -1,10 +1,20 @@
 import { coreOutput } from './coreOutput'
-import { ArgsType, Field, InputType } from 'type-graphql'
-import { MaxLength } from 'class-validator'
-import { User } from '@generated/index.js'
+import { ArgsType, Field, InputType, ObjectType } from 'type-graphql'
+import { IsEmail, MaxLength } from 'class-validator'
+import { User, UserCreateInput } from '@generated/index'
 
-export class ClientUserResolverInput {
-  user: User
+@InputType()
+export class ClientUserResolverInput extends UserCreateInput {
+  @Field((_) => String)
+  @IsEmail()
+  email: string
+
+  @Field((_) => String)
+  password: string
+
+  @Field((_) => String)
+  password2: string
 }
 
-export interface ClientUserResolverOutput extends coreOutput {}
+@ObjectType()
+export class ClientUserResolverOutput extends coreOutput {}
