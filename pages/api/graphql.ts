@@ -10,6 +10,7 @@ import { UserCrudResolver } from '@generated/index'
 import { PrismaClient } from '@prisma/client'
 import { jwtVerify } from '@libs/jwt'
 import { authChecker } from '@graphql/authChecker'
+import { LoginResolver } from '@graphql/resolvers/LoginResolver'
 
 enum SortOrder {
   asc = 'asc',
@@ -23,10 +24,11 @@ registerEnumType(SortOrder, {
 const schema = buildSchemaSync({
   resolvers: [
     // ...resolvers,
+    LoginResolver,
     UserCrudResolver,
     ClientUserResolver,
   ],
-  validate: false,
+  // validate: false,
   authChecker,
 })
 
@@ -38,6 +40,8 @@ const apolloServer = new ApolloServer({
 
     context.prisma = prisma
     context.token = req ? req.headers[TOKEN_KEY] : connection.context[TOKEN_KEY]
+
+    console.log('context', context)
     return context
   },
 })

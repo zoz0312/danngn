@@ -8,6 +8,8 @@ export const authChecker: AuthChecker<Context> = async (
 ) => {
   const { token, prisma } = context
 
+  console.log('roles', roles)
+
   if (!roles || roles.includes('Any')) {
     // Public Users [OR] Any Users
     return true

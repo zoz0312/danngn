@@ -1,4 +1,4 @@
-import { coreOutput } from './coreOutput'
+import { coreOutput } from '../type/coreOutput'
 import { ArgsType, Field, InputType, ObjectType } from 'type-graphql'
 import { IsEmail, MaxLength } from 'class-validator'
 import { User, UserCreateInput } from '@generated/index'

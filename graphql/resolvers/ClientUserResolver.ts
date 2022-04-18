@@ -1,8 +1,8 @@
-import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
+import { Arg, Authorized, Ctx, Mutation, Resolver } from 'type-graphql'
 import {
   ClientUserResolverInput,
   ClientUserResolverOutput,
-} from '@graphql/type/ClientUserResolver'
+} from '@graphql/entities/ClientUserResolver'
 import { Context } from '@libs/context'
 import { hashPassword } from '@libs/hash'
 
@@ -26,6 +26,8 @@ export class ClientUserResolver {
   //     return null
   //   }
   // }
+
+  // @Authorized('ADMIN')
   @Mutation((_) => ClientUserResolverOutput)
   async createAuthUser(
     @Ctx()
