@@ -1,5 +1,4 @@
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
-import prisma from '@libs/client'
 import {
   ClientUserResolverInput,
   ClientUserResolverOutput,

@@ -8,6 +8,8 @@ import { ClientUserResolver } from '@graphql/resolvers/ClientUserResolver'
 import { PageConfig } from 'next'
 import { UserCrudResolver } from '@generated/index'
 import { PrismaClient } from '@prisma/client'
+import { jwtVerify } from '@libs/jwt'
+import { authChecker } from '@graphql/authChecker'
 
 enum SortOrder {
   asc = 'asc',
@@ -25,12 +27,17 @@ const schema = buildSchemaSync({
     ClientUserResolver,
   ],
   validate: false,
+  authChecker,
 })
 
 const apolloServer = new ApolloServer({
   schema,
   context: (context) => {
+    const { res, req, connection } = context
+    const TOKEN_KEY = 'x-jwt'
+
     context.prisma = prisma
+    context.token = req ? req.headers[TOKEN_KEY] : connection.context[TOKEN_KEY]
     return context
   },
 })
