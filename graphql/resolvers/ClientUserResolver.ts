@@ -1,4 +1,4 @@
-import { Arg, Authorized, Ctx, Mutation, Resolver } from 'type-graphql'
+import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
 import {
   ClientUserResolverInput,
   ClientUserResolverOutput,
@@ -8,26 +8,6 @@ import { hashPassword } from '@libs/hash'
 
 @Resolver()
 export class ClientUserResolver {
-  // @Query((_) => User, { nullable: true })
-  // async findCustomUser(
-  //   @Info()
-  //   graphQLResolveInfo: GraphQLResolveInfo,
-  //   @Args(() => FindUniqueUserArgs)
-  //   findUniqueUserArgs: FindUniqueUserArgs
-  // ): Promise<User | null> {
-  //   console.log('findUniqueUserArgs', findUniqueUserArgs)
-  //   try {
-  //     const currentUser = await prisma.user.findUnique({
-  //       ...findUniqueUserArgs,
-  //     })
-  //     return currentUser
-  //   } catch (error) {
-  //     console.log('error', error)
-  //     return null
-  //   }
-  // }
-
-  // @Authorized('ADMIN')
   @Mutation((_) => ClientUserResolverOutput)
   async createAuthUser(
     @Ctx()

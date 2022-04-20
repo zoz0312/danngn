@@ -3,14 +3,13 @@ import {
   LoginResolverOutput,
 } from '@graphql/entities/LoginResolver'
 import { Arg, Ctx, Query, Resolver } from 'type-graphql'
-import { User } from '@generated/models'
 import { Context } from '@libs/context'
 import { checkPassword } from '@libs/hash'
-import { jwtSign } from '../../libs/jwt'
+import { jwtSign } from '@libs/jwt'
 
 @Resolver()
-export class LoginResolver {
-  @Query((_) => LoginResolverOutput, { nullable: true })
+export class ClientLoginResolver {
+  @Query((_) => LoginResolverOutput)
   async login(
     @Ctx()
     ctx: Context,

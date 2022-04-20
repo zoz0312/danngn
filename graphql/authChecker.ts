@@ -8,8 +8,6 @@ export const authChecker: AuthChecker<Context> = async (
 ) => {
   const { token, prisma } = context
 
-  console.log('roles', roles)
-
   if (!roles || roles.includes('Any')) {
     // Public Users [OR] Any Users
     return true
@@ -20,8 +18,6 @@ export const authChecker: AuthChecker<Context> = async (
   }
 
   const decoded: any = jwtVerify(token)
-
-  console.log('decoded', decoded)
 
   if (typeof decoded === 'object' && decoded.hasOwnProperty('id')) {
     const user = await prisma.user.findFirst({ where: { id: decoded.id } })
