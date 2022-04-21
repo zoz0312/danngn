@@ -1,16 +1,16 @@
-import { AdminUserOutput } from '@graphql/Admin/User/AdminUser.entity'
 import { Authorized, Ctx, Query, Resolver } from 'type-graphql'
 import { Context } from '@libs/context'
-import { AdminUserService } from './AdminUser.service'
+import { adminGetAllUsers } from './AdminUser.service'
+import { AdminGetAllUsersOutput } from './dto/admin-get-all-users.dto'
 
 @Resolver()
 export class AdminUserResolver {
   @Authorized('ADMIN')
-  @Query((_) => AdminUserOutput)
+  @Query((_) => AdminGetAllUsersOutput)
   async getAllUsers(
     @Ctx()
     ctx: Context
-  ): Promise<AdminUserOutput> {
-    return AdminUserService({ ctx })
+  ): Promise<AdminGetAllUsersOutput> {
+    return adminGetAllUsers({ ctx })
   }
 }

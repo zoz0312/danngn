@@ -1,7 +1,7 @@
-import { LoginInput, LoginOutput } from '@graphql/Login/Login.entity'
+import { LoginInput, LoginOutput } from '@graphql/Login/dto/login.dto'
 import { Arg, Ctx, Query, Resolver } from 'type-graphql'
 import { Context } from '@libs/context'
-import { LoginService } from './Login.service'
+import { login } from './Login.service'
 
 @Resolver()
 export class LoginResolver {
@@ -12,6 +12,6 @@ export class LoginResolver {
     @Arg('loginInput', () => LoginInput)
     loginInput: LoginInput
   ): Promise<LoginOutput> {
-    return LoginService({ ctx, loginInput })
+    return login({ ctx, loginInput })
   }
 }

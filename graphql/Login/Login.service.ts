@@ -1,16 +1,11 @@
-import { LoginInput, LoginOutput } from './Login.entity'
-import { coreInput } from '@graphql/type/coreInput'
+import { LoginOutput, LoginType } from './dto/login.dto'
 import { checkPassword } from '@libs/hash'
 import { jwtSign } from '@libs/jwt'
 
-class LoginServiceType extends coreInput {
-  loginInput: LoginInput
-}
-
-export const LoginService = async ({
+export const login = async ({
   ctx,
   loginInput,
-}: LoginServiceType): Promise<LoginOutput> => {
+}: LoginType): Promise<LoginOutput> => {
   try {
     const { prisma } = ctx
     const { email, password } = loginInput

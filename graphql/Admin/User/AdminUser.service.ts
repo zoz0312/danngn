@@ -1,11 +1,11 @@
-import { coreInput } from '@graphql/type/coreInput'
-import { AdminUserOutput } from './AdminUser.entity'
+import {
+  AdminGetAllUsersOutput,
+  AdminGetAllUsersType,
+} from './dto/admin-get-all-users.dto'
 
-class AdminUserServiceType extends coreInput {}
-
-export const AdminUserService = async ({
+export const adminGetAllUsers = async ({
   ctx,
-}: AdminUserServiceType): Promise<AdminUserOutput> => {
+}: AdminGetAllUsersType): Promise<AdminGetAllUsersOutput> => {
   const { prisma } = ctx
 
   let users = await prisma.user.findMany()

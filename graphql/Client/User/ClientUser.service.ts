@@ -1,17 +1,16 @@
-import { coreInput } from '@graphql/type/coreInput'
-import { ClientUserInput, ClientUserOutput } from './ClientUser.entity'
+import { hashPassword } from '@libs/hash'
+import {
+  CreateAuthUserOutput,
+  CreateAuthUserType,
+} from './dto/create-auth-user.dto'
 
-class ClientUserServiceType extends coreInput {
-  clientUserInput: ClientUserInput
-}
-
-export const ClientUserService = async ({
+export const createAuthUser = async ({
   ctx,
-  clientUserInput,
-}: ClientUserServiceType): Promise<ClientUserOutput> => {
+  createAuthUserInput,
+}: CreateAuthUserType): Promise<CreateAuthUserOutput> => {
   try {
     const { prisma } = ctx
-    const { email, password, password2 } = clientUserInput
+    const { email, password, password2 } = createAuthUserInput
 
     if (password !== password2) {
       return {
@@ -35,10 +34,10 @@ export const ClientUserService = async ({
       }
     }
 
-    delete clientUserInput.password2
-    clientUserInput.password = await hashPassword(password)
+    delete createAuthUserInput.password2
+    createAuthUserInput.password = await hashPassword(password)
     await prisma.user.create({
-      data: clientUserInput,
+      data: createAuthUserInput,
     })
 
     return {
@@ -51,3 +50,5 @@ export const ClientUserService = async ({
     }
   }
 }
+
+export const findMyInfo = async ({ ctx }: FindMyInfo): Promise<> => {}
