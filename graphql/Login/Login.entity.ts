@@ -4,7 +4,7 @@ import { User } from '@generated/models'
 import { coreOutput } from '../type/coreOutput'
 
 @InputType()
-export class LoginResolverInput implements Pick<User, 'email' | 'password'> {
+export class LoginInput implements Pick<User, 'email' | 'password'> {
   @Field((_) => String)
   @IsEmail()
   email: string
@@ -13,7 +13,7 @@ export class LoginResolverInput implements Pick<User, 'email' | 'password'> {
 }
 
 @ObjectType()
-export class LoginResolverOutput extends coreOutput {
+export class LoginOutput extends coreOutput {
   @Field((_) => String, { nullable: true })
   token?: string
 }

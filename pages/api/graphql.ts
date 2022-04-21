@@ -4,14 +4,14 @@ import { ApolloServer } from 'apollo-server-micro'
 import { buildSchemaSync, registerEnumType } from 'type-graphql'
 import prisma from '@libs/client'
 // import { resolvers } from '@generated/index'
-import { ClientUserResolver } from '@graphql/resolvers/ClientUserResolver'
 import { PageConfig } from 'next'
 import { UserCrudResolver } from '@generated/index'
 import { PrismaClient } from '@prisma/client'
 import { jwtVerify } from '@libs/jwt'
 import { authChecker } from '@graphql/authChecker'
-import { ClientLoginResolver } from '@graphql/resolvers/LoginResolver'
-import { AdminUserResolver } from '@graphql/resolvers/admin/AdminUserResolver'
+import { AdminUserResolver } from '@graphql/Admin/User/AdminUser.resolver'
+import { ClientUserResolver } from '@graphql/Client/User/ClientUser.resolver'
+import { LoginResolver } from '@graphql/Login/Login.resolver'
 
 enum SortOrder {
   asc = 'asc',
@@ -26,7 +26,7 @@ const schema = buildSchemaSync({
   resolvers: [
     // ...resolvers,
     AdminUserResolver,
-    ClientLoginResolver,
+    LoginResolver,
     UserCrudResolver,
     ClientUserResolver,
   ],

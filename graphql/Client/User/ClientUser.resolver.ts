@@ -1,23 +1,23 @@
 import { Arg, Ctx, Mutation, Resolver } from 'type-graphql'
 import {
-  ClientUserResolverInput,
-  ClientUserResolverOutput,
-} from '@graphql/entities/ClientUserResolver'
+  ClientUserInput,
+  ClientUserOutput,
+} from '@graphql/Client/User/ClientUser.entity'
 import { Context } from '@libs/context'
 import { hashPassword } from '@libs/hash'
 
 @Resolver()
 export class ClientUserResolver {
-  @Mutation((_) => ClientUserResolverOutput)
+  @Mutation((_) => ClientUserOutput)
   async createAuthUser(
     @Ctx()
     ctx: Context,
-    @Arg('clientUserResolverInput', () => ClientUserResolverInput)
-    clientUserResolverInput: ClientUserResolverInput
-  ): Promise<ClientUserResolverOutput> {
+    @Arg('clientUserInput', () => ClientUserInput)
+    clientUserInput: ClientUserInput
+  ): Promise<ClientUserOutput> {
     try {
       const { prisma } = ctx
-      const { email, password, password2 } = clientUserResolverInput
+      const { email, password, password2 } = clientUserInput
 
       if (password !== password2) {
         return {
@@ -41,10 +41,10 @@ export class ClientUserResolver {
         }
       }
 
-      delete clientUserResolverInput.password2
-      clientUserResolverInput.password = await hashPassword(password)
+      delete clientUserInput.password2
+      clientUserInput.password = await hashPassword(password)
       await prisma.user.create({
-        data: clientUserResolverInput,
+        data: clientUserInput,
       })
 
       return {

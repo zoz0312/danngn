@@ -1,10 +1,10 @@
-import { coreOutput } from '../type/coreOutput'
+import { coreOutput } from '../../type/coreOutput'
 import { ArgsType, Field, InputType, ObjectType } from 'type-graphql'
 import { IsEmail, MaxLength } from 'class-validator'
 import { User, UserCreateInput } from '@generated/index'
 
 @InputType()
-export class ClientUserResolverInput extends UserCreateInput {
+export class ClientUserInput extends UserCreateInput {
   @Field((_) => String)
   @IsEmail()
   email: string
@@ -17,4 +17,4 @@ export class ClientUserResolverInput extends UserCreateInput {
 }
 
 @ObjectType()
-export class ClientUserResolverOutput extends coreOutput {}
+export class ClientUserOutput extends coreOutput {}
