@@ -4,10 +4,6 @@ import { Field, InputType, ObjectType } from 'type-graphql'
 import { IsEmail } from 'class-validator'
 import { UserCreateInput } from '@generated/index'
 
-export class CreateAuthUserType extends coreInput {
-  createAuthUserInput: CreateAuthUserInput
-}
-
 @InputType()
 export class CreateAuthUserInput extends UserCreateInput {
   @Field((_) => String)

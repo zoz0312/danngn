@@ -1,16 +1,14 @@
 import { hashPassword } from '@libs/hash'
 import {
+  CreateAuthUserInput,
   CreateAuthUserOutput,
-  CreateAuthUserType,
 } from './dto/create-auth-user.dto'
-import { FindMyInfoOutput, FindMyInfoType } from './dto/find-my-info.dto'
+import prisma from '@libs/client'
 
-export const createAuthUser = async ({
-  ctx,
-  createAuthUserInput,
-}: CreateAuthUserType): Promise<CreateAuthUserOutput> => {
+export const createAuthUser = async (
+  createAuthUserInput: CreateAuthUserInput
+): Promise<CreateAuthUserOutput> => {
   try {
-    const { prisma } = ctx
     const { email, password, password2 } = createAuthUserInput
 
     if (password !== password2) {
@@ -49,22 +47,5 @@ export const createAuthUser = async ({
       success: false,
       error,
     }
-  }
-}
-
-export const findMyInfo = async ({
-  ctx,
-}: FindMyInfoType): Promise<FindMyInfoOutput> => {
-  const { user } = ctx
-
-  if (!user) {
-    return {
-      success: false,
-    }
-  }
-
-  return {
-    success: true,
-    user,
   }
 }

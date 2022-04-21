@@ -7,10 +7,7 @@ import { AdminGetAllUsersOutput } from './dto/admin-get-all-users.dto'
 export class AdminUserResolver {
   @Authorized('ADMIN')
   @Query((_) => AdminGetAllUsersOutput)
-  async getAllUsers(
-    @Ctx()
-    ctx: Context
-  ): Promise<AdminGetAllUsersOutput> {
-    return adminGetAllUsers({ ctx })
+  async getAllUsers(): Promise<AdminGetAllUsersOutput> {
+    return adminGetAllUsers()
   }
 }

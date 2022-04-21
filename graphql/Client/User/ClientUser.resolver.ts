@@ -4,8 +4,9 @@ import {
   CreateAuthUserOutput,
 } from '@graphql/Client/User/dto/create-auth-user.dto'
 import { Context } from '@libs/context'
-import { createAuthUser, findMyInfo } from './ClientUser.service'
+import { createAuthUser } from './ClientUser.service'
 import { FindMyInfoOutput } from './dto/find-my-info.dto'
+import prisma from '@libs/client'
 
 @Resolver()
 export class ClientUserResolver {
@@ -16,7 +17,7 @@ export class ClientUserResolver {
     @Arg('createAuthUserInput', () => CreateAuthUserInput)
     createAuthUserInput: CreateAuthUserInput
   ): Promise<CreateAuthUserOutput> {
-    return createAuthUser({ ctx, createAuthUserInput })
+    return createAuthUser(createAuthUserInput)
   }
 
   @Authorized('Any')
@@ -25,6 +26,14 @@ export class ClientUserResolver {
     @Ctx()
     ctx: Context
   ): Promise<FindMyInfoOutput> {
-    return findMyInfo({ ctx })
+    if (ctx.user) {
+      return {
+        success: true,
+        user: ctx.user,
+      }
+    }
+    return {
+      success: false,
+    }
   }
 }

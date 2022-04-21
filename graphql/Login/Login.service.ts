@@ -1,13 +1,10 @@
-import { LoginOutput, LoginType } from './dto/login.dto'
+import { LoginInput, LoginOutput } from './dto/login.dto'
 import { checkPassword } from '@libs/hash'
 import { jwtSign } from '@libs/jwt'
+import prisma from '@libs/client'
 
-export const login = async ({
-  ctx,
-  loginInput,
-}: LoginType): Promise<LoginOutput> => {
+export const login = async (loginInput: LoginInput): Promise<LoginOutput> => {
   try {
-    const { prisma } = ctx
     const { email, password } = loginInput
 
     const user = await prisma.user.findUnique({

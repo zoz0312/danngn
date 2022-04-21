@@ -1,13 +1,7 @@
-import {
-  AdminGetAllUsersOutput,
-  AdminGetAllUsersType,
-} from './dto/admin-get-all-users.dto'
+import prisma from '@libs/client'
+import { AdminGetAllUsersOutput } from './dto/admin-get-all-users.dto'
 
-export const adminGetAllUsers = async ({
-  ctx,
-}: AdminGetAllUsersType): Promise<AdminGetAllUsersOutput> => {
-  const { prisma } = ctx
-
+export const adminGetAllUsers = async (): Promise<AdminGetAllUsersOutput> => {
   let users = await prisma.user.findMany()
   users = users.map((user) => {
     delete user.password

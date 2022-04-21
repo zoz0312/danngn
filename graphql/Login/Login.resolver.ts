@@ -12,6 +12,6 @@ export class LoginResolver {
     @Arg('loginInput', () => LoginInput)
     loginInput: LoginInput
   ): Promise<LoginOutput> {
-    return login({ ctx, loginInput })
+    return login(loginInput)
   }
 }
