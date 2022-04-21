@@ -1,6 +1,7 @@
 import { AdminUserOutput } from '@graphql/Admin/User/AdminUser.entity'
 import { Authorized, Ctx, Query, Resolver } from 'type-graphql'
 import { Context } from '@libs/context'
+import { AdminUserService } from './AdminUser.service'
 
 @Resolver()
 export class AdminUserResolver {
@@ -10,17 +11,6 @@ export class AdminUserResolver {
     @Ctx()
     ctx: Context
   ): Promise<AdminUserOutput> {
-    const { prisma } = ctx
-
-    let users = await prisma.user.findMany()
-    users = users.map((user) => {
-      delete user.password
-      return user
-    })
-
-    return {
-      success: true,
-      users,
-    }
+    return AdminUserService({ ctx })
   }
 }

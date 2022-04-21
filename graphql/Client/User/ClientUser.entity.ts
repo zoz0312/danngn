@@ -1,7 +1,7 @@
 import { coreOutput } from '../../type/coreOutput'
-import { ArgsType, Field, InputType, ObjectType } from 'type-graphql'
-import { IsEmail, MaxLength } from 'class-validator'
-import { User, UserCreateInput } from '@generated/index'
+import { Field, InputType, ObjectType } from 'type-graphql'
+import { IsEmail } from 'class-validator'
+import { UserCreateInput } from '@generated/index'
 
 @InputType()
 export class ClientUserInput extends UserCreateInput {
