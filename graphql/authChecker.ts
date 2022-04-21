@@ -8,7 +8,7 @@ export const authChecker: AuthChecker<Context> = async (
 ) => {
   const { token, prisma } = context
 
-  if (!roles || roles.includes('Any')) {
+  if (!roles) {
     // Public Users [OR] Any Users
     return true
   }
@@ -26,9 +26,20 @@ export const authChecker: AuthChecker<Context> = async (
       return false
     }
 
+    delete user.password
     context.user = user
 
-    return user.role === 'SUPER_ADMIN' || roles.includes(user.role)
+    if (roles.includes('Any')) {
+      return true
+    }
+
+    if (user.role === 'SUPER_ADMIN') {
+      return true
+    }
+
+    if (roles.includes(user.role)) {
+      return true
+    }
   }
 
   return false // or false if access denied

@@ -3,6 +3,7 @@ import {
   CreateAuthUserOutput,
   CreateAuthUserType,
 } from './dto/create-auth-user.dto'
+import { FindMyInfoOutput, FindMyInfoType } from './dto/find-my-info.dto'
 
 export const createAuthUser = async ({
   ctx,
@@ -51,4 +52,19 @@ export const createAuthUser = async ({
   }
 }
 
-export const findMyInfo = async ({ ctx }: FindMyInfo): Promise<> => {}
+export const findMyInfo = async ({
+  ctx,
+}: FindMyInfoType): Promise<FindMyInfoOutput> => {
+  const { user } = ctx
+
+  if (!user) {
+    return {
+      success: false,
+    }
+  }
+
+  return {
+    success: true,
+    user,
+  }
+}
