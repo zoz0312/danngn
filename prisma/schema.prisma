@@ -50,6 +50,17 @@ enum salesType {
   SOLD_OUT  // 판매완료
 }
 
+// 한국 읍면동 정보
+model lsmdAdmSectUmd {
+  id            Int           @id @default(autoincrement())
+  emdCd         String        @db.VarChar(8)  // 읍면동코드
+  emdNm         String        @db.VarChar(60) // 읍면동명
+  ssgOid        Int                           // 원천오브젝트ID
+  colAdmSe      String        @db.VarChar(5)  // 원천시군구코드
+  gid           Int
+  tradePost     tradePost[]
+}
+
 model tradeCategory {
   id            Int           @id @default(autoincrement())
   createdAt     DateTime      @default(now())
@@ -63,23 +74,24 @@ model tradeCategory {
 }
 
 model tradePost {
-  id            Int           @id @default(autoincrement())
-  createdAt     DateTime      @default(now())
-  updatedAt     DateTime      @default(now()) @updatedAt
-  deleted       DateTime?
-  title         String
-  content       String        @db.Text
-  price         Int
-  salesType     salesType     @default(SALE)
-  hitCount      Int           @db.UnsignedInt @default(0)
-  isHide        Boolean       @default(false)
-  isPriceOffer  Boolean       @default(false)
-  user          user          @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId        Int
-  category      tradeCategory @relation(fields: [categoryId], references: [id], onDelete: Cascade)
-  categoryId    Int
-  tradeInterest tradeInterest[]
-  // TODO: 읍면동 정보
+  id                Int             @id @default(autoincrement())
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @default(now()) @updatedAt
+  deleted           DateTime?
+  title             String
+  content           String          @db.Text
+  price             Int
+  salesType         salesType       @default(SALE)
+  hitCount          Int             @db.UnsignedInt @default(0)
+  isHide            Boolean         @default(false)
+  isPriceOffer      Boolean         @default(false)
+  user              user            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId            Int
+  category          tradeCategory   @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  categoryId        Int
+  tradeInterest     tradeInterest[]
+  lsmdAdmSectUmd    lsmdAdmSectUmd  @relation(fields: [lsmdAdmSectUmdId], references: [emdCd], onDelete: Cascade)
+  lsmdAdmSectUmdId  String          @db.VarChar(8)
   // TODO: 이미지
 
   @@index([id])
