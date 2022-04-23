@@ -6,7 +6,6 @@ import {
 import { Context } from '@libs/context'
 import { createAuthUser } from './ClientUser.service'
 import { FindMyInfoOutput } from './dto/find-my-info.dto'
-import prisma from '@libs/client'
 
 @Resolver()
 export class ClientUserResolver {
