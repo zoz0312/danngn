@@ -1,4 +1,4 @@
-const daeguSeed = [
+export const daeguSeed = [
   {
     emdCd: '27200103',
     emdNm: '대명동',

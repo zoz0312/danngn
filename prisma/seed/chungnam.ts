@@ -1,4 +1,4 @@
-const chungnamSeed = [
+export const chungnamSeed = [
   {
     emdCd: '44790330',
     emdNm: '정산면',

@@ -1,4 +1,4 @@
-const sejongSeed = [
+export const sejongSeed = [
   {
     emdCd: '36110310',
     emdNm: '연기면',

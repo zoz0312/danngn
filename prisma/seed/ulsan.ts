@@ -1,4 +1,4 @@
-const ulsanSeed = [
+export const ulsanSeed = [
   {
     emdCd: '31140106',
     emdNm: '삼산동',

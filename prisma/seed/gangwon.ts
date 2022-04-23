@@ -1,4 +1,4 @@
-const gangwonSeed = [
+export const gangwonSeed = [
   {
     emdCd: '42110117',
     emdNm: '근화동',

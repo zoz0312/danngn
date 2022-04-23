@@ -1,4 +1,4 @@
-const gwangjuSeed = [
+export const gwangjuSeed = [
   {
     emdCd: '29170129',
     emdNm: '연제동',

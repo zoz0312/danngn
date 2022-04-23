@@ -1,4 +1,4 @@
-const jejuSeed = [
+export const jejuSeed = [
   {
     emdCd: '50130259',
     emdNm: '성산읍',

@@ -1,4 +1,4 @@
-const daejeonSeed = [
+export const daejeonSeed = [
   {
     emdCd: '30230110',
     emdNm: '비래동',

@@ -1,4 +1,4 @@
-const seoulSeed = [
+export const seoulSeed = [
   {
     emdCd: '11290129',
     emdNm: '보문동7가',

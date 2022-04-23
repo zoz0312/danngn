@@ -1,4 +1,4 @@
-const jeonbukSeed = [
+export const jeonbukSeed = [
   {
     emdCd: '45140440',
     emdNm: '용동면',

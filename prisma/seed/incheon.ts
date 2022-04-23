@@ -1,4 +1,4 @@
-const incheonSeed = [
+export const incheonSeed = [
   {
     emdCd: '28260105',
     emdNm: '공촌동',

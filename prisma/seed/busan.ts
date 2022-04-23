@@ -1,4 +1,4 @@
-const busanSeed = [
+export const busanSeed = [
   {
     emdCd: '26350103',
     emdNm: '반여동',

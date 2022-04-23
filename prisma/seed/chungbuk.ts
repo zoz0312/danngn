@@ -1,4 +1,4 @@
-const chungbukSeed = [
+export const chungbukSeed = [
   {
     emdCd: '43111310',
     emdNm: '낭성면',

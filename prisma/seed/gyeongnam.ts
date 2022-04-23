@@ -1,4 +1,4 @@
-const gyeongnamSeed = [
+export const gyeongnamSeed = [
   {
     emdCd: '48330121',
     emdNm: '매곡동',

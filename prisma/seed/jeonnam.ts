@@ -1,4 +1,4 @@
-const jeonnamSeed = [
+export const jeonnamSeed = [
   {
     emdCd: '46910420',
     emdNm: '암태면',
