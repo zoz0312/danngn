@@ -5,6 +5,21 @@ import {
 } from './dto/create-auth-user.dto'
 import prisma from '@libs/client'
 import { regex } from '@libs/regex'
+import { User } from '@generated/models'
+
+export const findUserById = async (userId: number): Promise<User | null> => {
+  const user = await prisma.user.findUnique({
+    where: {
+      id: userId,
+    },
+  })
+
+  if (!user) {
+    return null
+  }
+
+  return user
+}
 
 export const createAuthUser = async (
   createAuthUserInput: CreateAuthUserInput

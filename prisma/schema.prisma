@@ -74,16 +74,27 @@ model tradeCategory {
 }
 
 model tradePost {
+  // ID
   id                Int             @id @default(autoincrement())
+  // 생성일
   createdAt         DateTime        @default(now())
+  // 업데이트날짜
   updatedAt         DateTime        @default(now()) @updatedAt
+  // 삭제여부 및 삭제날짜
   deleted           DateTime?
+  // 제목
   title             String
+  // 내용
   content           String          @db.Text
+  // 가격
   price             Int
+  // 판매 타입
   salesType         salesType       @default(SALE)
+  // 본 횟수
   hitCount          Int             @db.UnsignedInt @default(0)
+  // 게시물 숨김 여부
   isHide            Boolean         @default(false)
+  // 가격제안 여부
   isPriceOffer      Boolean         @default(false)
   user              user            @relation(fields: [userId], references: [id], onDelete: Cascade)
   userId            Int
