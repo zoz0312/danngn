@@ -1,6 +1,6 @@
 import { TradePost } from '@generated/models'
 import { Field, InputType, ObjectType } from 'type-graphql'
-import { coreOutput } from '@graphql/type/coreOutput'
+import { CoreOutput } from '@graphql/common/CoreOutput'
 import { TradePostCreateInput } from '@generated/index'
 
 @InputType()
@@ -10,7 +10,7 @@ export class ClientGetPostsInput {
 }
 
 @ObjectType()
-export class ClientGetPostsOutput extends coreOutput {
+export class ClientGetPostsOutput extends CoreOutput {
   @Field((_) => [TradePost], { nullable: true })
   tradePost?: TradePost[]
 }

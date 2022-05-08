@@ -1,5 +1,5 @@
-import { coreOutput } from '@graphql/type/coreOutput'
-import { coreInput } from '@graphql/type/coreInput'
+import { CoreOutput } from '@graphql/common/CoreOutput'
+import { CoreInput } from '@graphql/common/CoreInput'
 import { Field, InputType, ObjectType } from 'type-graphql'
 import { IsEmail } from 'class-validator'
 import { UserCreateInput } from '@generated/index'
@@ -18,4 +18,4 @@ export class CreateAuthUserInput extends UserCreateInput {
 }
 
 @ObjectType()
-export class CreateAuthUserOutput extends coreOutput {}
+export class CreateAuthUserOutput extends CoreOutput {}

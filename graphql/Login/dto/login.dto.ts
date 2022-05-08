@@ -1,10 +1,10 @@
 import { Field, InputType, ObjectType } from 'type-graphql'
 import { IsEmail } from 'class-validator'
 import { User } from '@generated/models'
-import { coreOutput } from '@graphql/type/coreOutput'
-import { coreInput } from '@graphql/type/coreInput'
+import { CoreOutput } from '@graphql/common/CoreOutput'
+import { CoreInput } from '@graphql/common/CoreInput'
 
-export class LoginType extends coreInput {
+export class LoginType extends CoreInput {
   loginInput: LoginInput
 }
 
@@ -18,7 +18,7 @@ export class LoginInput implements Pick<User, 'email' | 'password'> {
 }
 
 @ObjectType()
-export class LoginOutput extends coreOutput {
+export class LoginOutput extends CoreOutput {
   @Field((_) => String, { nullable: true })
   token?: string
 }

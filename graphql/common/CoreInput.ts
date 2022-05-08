@@ -1,3 +1,3 @@
 import { Context } from '@libs/context'
 
-export class coreInput {}
+export class CoreInput {}

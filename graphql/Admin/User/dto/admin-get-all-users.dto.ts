@@ -1,10 +1,10 @@
 import { Field, ObjectType } from 'type-graphql'
-import { coreOutput } from '@graphql/type/coreOutput'
+import { CoreOutput } from '@graphql/common/CoreOutput'
 import { User } from '@generated/models'
-import { coreInput } from '@graphql/type/coreInput'
+import { CoreInput } from '@graphql/common/CoreInput'
 
 @ObjectType()
-export class AdminGetAllUsersOutput extends coreOutput {
+export class AdminGetAllUsersOutput extends CoreOutput {
   @Field((_) => [User], { nullable: true })
   users?: User[]
 }
